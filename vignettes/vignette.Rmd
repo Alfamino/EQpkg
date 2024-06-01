@@ -1,0 +1,97 @@
+---
+title: "Tutorial with examples"
+author: "Tom"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Sample usage of the library
+
+You first load library like this
+
+```{r }
+library(EQpkg)
+```
+
+Load also addiotional librarires
+
+```{r }
+library(tidyverse)
+library(leaflet)
+library(lubridate)
+```
+
+## Preprocess
+
+Parse data like this
+
+```{r , echo=TRUE}
+sample_data <- tibble(
+  `Location Name` = c("Tokyo: Japan", "Lisbon", "New York City: USA"),
+    CITY = c("Krakow", "Lisbon", "Tuskolasy"),
+    Mag = c(10,10,10),
+    Year = c(2023, 2023, 2023),
+    Mo = c(1, 2, 3),
+    Dy = c(10, 11, 12),
+    Latitude = c(40.71, -33.87, 35.68),
+    Longitude = c(-74.00, 151.21, 139.69),
+    Deaths = c(3, NA, 125)
+  )
+sample_data
+```
+
+Next
+
+```{r , echo=TRUE}
+cleaned_data <- eq_clean_data(sample_data) 
+cleaned_data
+```
+
+
+Next
+
+```{r , echo=TRUE}
+cleaned_data2 <- eq_location_clean(cleaned_data) 
+cleaned_data2
+```
+
+# Graphical elements
+
+Then we can plot data in the nice way
+
+```{r , echo=TRUE}
+
+ggplot(cleaned_data2, aes(x = Date, size = Mag)) +
+    geom_timeline(xmin = ymd("2000-01-01"), xmax = ymd("2024-12-31"))
+
+```
+
+We can also add names
+
+```{r , echo=TRUE}
+ggplot(cleaned_data2, aes(x = Date, y=CITY,fill=Mag,size = Mag)) +
+    geom_timeline(xmin = ymd("2000-01-01"), xmax = ymd("2024-12-31")) +
+    geom_timeline_label( xmin = ymd('1999-01-01'),
+                         xmax = ymd('2024-12-31'),
+                         n_max=2 ,
+                         aes(name=CITY))
+```
+
+We can prepare some addnotation to the markers
+
+```{r , echo=TRUE}
+
+eq_create_label(cleaned_data2)
+```
+
+Or/and plot them to on the map
+
+```{r , echo=TRUE}
+eq_map(cleaned_data2, 'Date')
+```
