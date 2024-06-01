@@ -1,3 +1,12 @@
+[![Build Status](https://app.travis-ci.com/Alfamino/EQpkg.svg?token=h2Dzv8V5Y8xfeRUUC39U&branch=main)](https://app.travis-ci.com/Alfamino/EQpkg)
+![Static Badge](https://img.shields.io/badge/TRAVIS-IS%20PAID-blue)
+Other: 
+![Static Badge](https://img.shields.io/badge/Tests-passing-green)
+![Static Badge](https://img.shields.io/badge/C_CMD_CHECK-passing-green)
+
+
+
+
 # Clean and Prepare NOAA Significant Earthquakes Dataset
 
 This document describes several R functions used to clean and prepare a dataset of significant earthquakes from NOAA. These functions perform data cleaning steps and create visualizations for the earthquakes.
